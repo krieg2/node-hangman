@@ -5,7 +5,8 @@ var Word = function(str){
 	this.value = str;
 
 	this.letters = this.value.split("").map(function(c) {
-		new Letter(c);
+		var ltr = new Letter(c);
+		return ltr;
 	});	
 
 };

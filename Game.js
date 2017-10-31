@@ -14,6 +14,7 @@ var Game = function(){
 
 	    var regEx = /^[a-z]$/;
 	    if(regEx.test(input)){
+
 	    	var letter = new Letter(input);
 	    	this.guessedLetters.push(letter);
 	    	this.guessesRemaining--;
@@ -32,9 +33,11 @@ var Game = function(){
 	};
 	this.printBoard = function(){
 
+		var str = "";
 		for(var i=0; i < this.answer.letters.length; i++){
-			cosole.log(this.answer.letters[i].value);
+			str += this.answer.letters[i].value + " ";
 		}
+		console.log(str);
 	};
 	this.init = function(){
 

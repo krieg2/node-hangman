@@ -15,12 +15,13 @@ function guess(){
 	    }
 	]).then(function(response) {
 
-	    game.guessLetter(response);
+	    game.guessLetter(response.guess);
 	    
 		if(game.guessesRemaining > 0){
 			guess();
 		}
 	    console.log(game.guessedLetters);
+	    console.log(game.printBoard());
 	});
 
 }
