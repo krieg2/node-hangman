@@ -3,7 +3,7 @@ var Inquirer = require("inquirer");
 
 var game = new Game();
 game.init();
-console.log(game.answer);
+//console.log(game.answer);
 
 function guess(){
 
@@ -20,7 +20,7 @@ function guess(){
 		if(game.guessesRemaining > 0){
 			guess();
 		}
-	    console.log(game.guessedLetters);
+	    //console.log(game.guessedLetters);
 	    console.log(game.printBoard());
 	});
 
