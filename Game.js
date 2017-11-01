@@ -14,6 +14,8 @@ var Game = function(){
 
     this.lettersRemaining = 0;
 
+    this.bypassNoMoreGuesses = false;
+
     this.guessedLetters = [];
 
     this.guessLetter = function(input){
@@ -29,7 +31,7 @@ var Game = function(){
 
 	    		// Store it and reduce the remaining tries.
 		    	this.guessedLetters.push(input);
-		    	this.guessesRemaining--;
+
 		    	result = "INCORRECT!!!"
 
 		    	// Change each matching letter in the answer
@@ -43,6 +45,10 @@ var Game = function(){
 		    			ltr.guessed = true;
 		    			this.lettersRemaining--;
 		    		}
+		    	}
+
+		    	if(result === "INCORRECT!!!" && this.guessesRemaining > 0){
+		    		this.guessesRemaining--;
 		    	}
 		    } else {
 		    	result = "Already guessed " + input;
@@ -93,6 +99,7 @@ var Game = function(){
 		this.chooseGameAnswer();
 		this.guessesRemaining = 10;
 		this.guessedLetters = [];
+		this.bypassNoMoreGuesses = false;
 	};
 
 

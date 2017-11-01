@@ -5,6 +5,8 @@ const chalk = require("chalk");
 var game = new Game();
 game.init();
 
+guess();
+
 function guess(){
 
 	console.log("\n" + game.printBoard() + "\n");
@@ -27,6 +29,7 @@ function guess(){
 		} else if(result === "INCORRECT!!!"){
 
 			console.log(chalk.redBright(result) + "\n");
+
 			console.log(game.guessesRemaining + " guesses remaining.\n");
 
 		} else {
@@ -35,19 +38,50 @@ function guess(){
 
 		}
 
-		if(game.lettersRemaining > 0 && game.guessesRemaining > 0){
+		if(game.guessesRemaining === 0 && !game.bypassNoMoreGuesses){
 
-			guess();
+				continuePrompt();
 
-		} else if(game.lettersRemaining == 0){
+		} else if(game.lettersRemaining === 0){
 
 			console.log("You got it right! Next word!" + "\n");
 			game.init();
 			guess();
+
+		} else {
+
+			guess();
+
 		}
 	});
 
 }
 
-guess();
+
+function continuePrompt(){
+
+	inquirer.prompt([
+	    {
+	        type: "confirm",
+	        name: "continueGame",
+	        message: "Would you like to continue playing?"
+	    }
+	]).then(function(response) {
+
+		if(response.continueGame){
+
+			// Continue guessing with current game.
+			game.bypassNoMoreGuesses = true;
+			guess();
+
+		} else {
+
+			// Start a new game.
+			game.init();
+			guess();
+
+		}
+	});
+
+}
 
