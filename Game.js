@@ -12,6 +12,8 @@ var Game = function(){
 
     this.answer = undefined;
 
+    this.lettersRemaining = 0;
+
     this.guessedLetters = [];
 
     this.guessLetter = function(input){
@@ -30,13 +32,16 @@ var Game = function(){
 		    	this.guessesRemaining--;
 		    	result = "INCORRECT!!!"
 
-		    	// Change each letter of the answer to guessed = true.
+		    	// Change each matching letter in the answer
+		    	// to guessed = true.
 		    	for(var i=0; i < this.answer.letters.length; i++){
 
 		    		var ltr = this.answer.letters[i];
 		    		if(ltr.value === input){
+
 		    			result = "CORRECT!!!"
 		    			ltr.guessed = true;
+		    			this.lettersRemaining--;
 		    		}
 		    	}
 		    } else {
@@ -61,6 +66,7 @@ var Game = function(){
 	    // Store it as a Word object.
 	    var word = new Word(answer);
 	    this.answer = word;
+	    this.lettersRemaining = word.value.length;
 	};
 
 	this.printBoard = function(){

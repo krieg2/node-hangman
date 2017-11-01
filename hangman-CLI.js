@@ -7,6 +7,8 @@ game.init();
 
 function guess(){
 
+	console.log("\n" + game.printBoard() + "\n");
+
 	inquirer.prompt([
 	    {
 	        type: "input",
@@ -16,7 +18,6 @@ function guess(){
 	]).then(function(response) {
 
 	    var result = game.guessLetter(response.letterInput.trim());
-	    
 	    console.log("\n" + game.printBoard() + "\n");
 
 	    if(result === "CORRECT!!!"){
@@ -26,10 +27,22 @@ function guess(){
 		} else if(result === "INCORRECT!!!"){
 
 			console.log(chalk.redBright(result) + "\n");
+			console.log(game.guessesRemaining + " guesses remaining.\n");
+
+		} else {
+
+			console.log(chalk.redBright(result) + "\n");
 
 		}
 
-		if(game.guessesRemaining > 0){
+		if(game.lettersRemaining > 0 && game.guessesRemaining > 0){
+
+			guess();
+
+		} else if(game.lettersRemaining == 0){
+
+			console.log("You got it right! Next word!" + "\n");
+			game.init();
 			guess();
 		}
 	});
