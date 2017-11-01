@@ -2,13 +2,11 @@ var Letter = require ("./Letter.js");
 
 var Word = function(str){
 
-	this.value = str.trim();
+	// Must include str parameter to create a word.
+	this.value = str.trim().replace(" ", "");
 
 	// This maps the string value into an array of letters.
-	this.letters = this.value.split("").map(function(c) {
-		var ltr = new Letter(c);
-		return ltr;
-	});	
+	this.letters = this.value.split("").map(c => new Letter(c));
 
 };
 

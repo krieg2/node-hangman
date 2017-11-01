@@ -64,7 +64,7 @@ function continuePrompt(){
 	    {
 	        type: "confirm",
 	        name: "continueGame",
-	        message: "Would you like to continue playing?"
+	        message: "Would you like to continue this game?"
 	    }
 	]).then(function(response) {
 
