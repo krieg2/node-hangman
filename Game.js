@@ -22,19 +22,19 @@ var Game = function(){
 
     	var result = "";
 
-    	// Regular expression to test that the input is a character.
-	    var regEx = /^[a-z]$/;
-	    if(regEx.test(input)){
+    	// Validate that the input is a character.
+    	var letter = new Letter(input);
+	    if(letter.validate()){
 
 	    	// If the letter has not already been guessed.
-	    	if(!this.guessedLetters.includes(input)){
+	    	if(!this.guessedLetters.includes(letter.value)){
 
 	    		// Store it and reduce the remaining tries.
-		    	this.guessedLetters.push(input);
+		    	this.guessedLetters.push(letter.value);
 
 		    	// Change each matching letter in the answer
 		    	// to guessed = true.
-		    	var count = this.answer.guessALetter(input);
+		    	var count = this.answer.guessALetter(letter.value);
 
 				if(count > 0){
 
@@ -49,7 +49,7 @@ var Game = function(){
 		    		}
 		    	}
 		    } else {
-		    	result = "Already guessed " + input;
+		    	result = "Already guessed " + letter.value;
 		    }
 	    } else {
 		    result = "Try again. Invalid input: " + input;
