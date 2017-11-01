@@ -4,37 +4,51 @@ var Word = require ("./Word.js");
 var Game = function(){
 
 	this.guessesRemaining = 10;
+
 	this.islandList = ["sumatra", "tahiti", "bora bora",
            		       "bali", "maui", "boracay", "aruba",
               		    "palawan", "hawaii", "jamaica", 
                   		"ibiza", "madagascar", "malta"];
+
     this.answer = undefined;
+
     this.guessedLetters = [];
 
     this.guessLetter = function(input){
+
+    	var result = "";
 
     	// Regular expression to test that the input is a character.
 	    var regEx = /^[a-z]$/;
 	    if(regEx.test(input)){
 
-	    	// If the character has not already been guessed.
+	    	// If the letter has not already been guessed.
 	    	if(!this.guessedLetters.includes(input)){
 
 	    		// Store it and reduce the remaining tries.
 		    	this.guessedLetters.push(input);
 		    	this.guessesRemaining--;
+		    	result = "INCORRECT!!!"
 
 		    	// Change each letter of the answer to guessed = true.
 		    	for(var i=0; i < this.answer.letters.length; i++){
 
 		    		var ltr = this.answer.letters[i];
 		    		if(ltr.value === input){
+		    			result = "CORRECT!!!"
 		    			ltr.guessed = true;
 		    		}
 		    	}
+		    } else {
+		    	result = "Already guessed " + input;
 		    }
-	    }
+	    } else {
+		    result = "Try again. Invalid input: " + input;
+		}
+
+		return result;
 	};
+
 	this.chooseGameAnswer = function(){
 
 	    var answer = "";
@@ -48,6 +62,7 @@ var Game = function(){
 	    var word = new Word(answer);
 	    this.answer = word;
 	};
+
 	this.printBoard = function(){
 
 		var str = "";
@@ -57,14 +72,15 @@ var Game = function(){
 			// or the actual value if guessed correctly.
 			if(this.answer.letters[i].guessed){
 				str += this.answer.letters[i].value;
-				console.log(this.answer.letters[i].value + i);
 			} else {
 				str += "_";
 			}
 			str += " ";
 		}
-		console.log(str);
+		
+		return str;
 	};
+
 	this.init = function(){
 
 		// Reset the game.

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/krieg2/node-hangman#readme",
   "dependencies": {
+    "chalk": "^2.3.0",
     "inquirer": "^3.3.0"
   }
 }
