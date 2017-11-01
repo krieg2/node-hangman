@@ -32,23 +32,21 @@ var Game = function(){
 	    		// Store it and reduce the remaining tries.
 		    	this.guessedLetters.push(input);
 
-		    	result = "INCORRECT!!!"
-
 		    	// Change each matching letter in the answer
 		    	// to guessed = true.
-		    	for(var i=0; i < this.answer.letters.length; i++){
+		    	var count = this.answer.guessALetter(input);
 
-		    		var ltr = this.answer.letters[i];
-		    		if(ltr.value === input){
+				if(count > 0){
 
-		    			result = "CORRECT!!!"
-		    			ltr.guessed = true;
-		    			this.lettersRemaining--;
+					result = "CORRECT!!!";
+		    		this.lettersRemaining -= count;
+
+		    	} else {
+
+		    		result = "INCORRECT!!!";
+		    		if(this.guessesRemaining > 0){
+		    			this.guessesRemaining--;
 		    		}
-		    	}
-
-		    	if(result === "INCORRECT!!!" && this.guessesRemaining > 0){
-		    		this.guessesRemaining--;
 		    	}
 		    } else {
 		    	result = "Already guessed " + input;
@@ -101,7 +99,6 @@ var Game = function(){
 		this.guessedLetters = [];
 		this.bypassNoMoreGuesses = false;
 	};
-
 
 };
 

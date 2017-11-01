@@ -12,4 +12,20 @@ var Word = function(str){
 
 };
 
+Word.prototype.guessALetter = function(input){
+
+	var count = 0;
+	for(var i=0; i < this.letters.length; i++){
+
+		var ltr = this.letters[i];
+		if(ltr.value === input){
+
+			count++;
+			ltr.guessed = true;
+		}
+	}
+
+	return count;
+};
+
 module.exports = Word;
